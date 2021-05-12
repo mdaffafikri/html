@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <div class="menulist">
+                <a class="menu" href="#">Home</a>
+                <a class="menu" href="#">Feature</a>
+                <a class="menu" href="#">About</a>
+            
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="content">
+            <article>
+                <ol id="article">
+                    <!-- content filled by javascript -->
+                </ol>
+            </article>
+            <aside>
+                <br/>
+                <h4>
+                    Profile
+                </h4>
+            </aside>
+        </div>
+    </main>
+</body>
+<footer>&copy; 2021</footer>
+
+<script>
+    var post
+    var data ='<h4>Posts</h4>'
+    window.onload = () => {
+        fetch('https://cat-fact.herokuapp.com/facts')
+            .then((response) => response.json())
+            .then((json) => post = json)
+            .then(() => {
+
+                post.forEach((element) => {
+                        data += 
+                        `
+                            <li>
+                                ${element.text}
+                                <br/>
+                                <small>
+                                    Created at: ${element.createdAt}    
+                                </small>
+                            </li>
+                            <br/>
+                        `
+                })
+                document.getElementById("article").innerHTML = data
+            }
+            )
+    }
+</script>
+</html>
